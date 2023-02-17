@@ -47,6 +47,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
+            app:strokeWidth="0dp"
             app:cardElevation="4dp"
             app:shapeAppearance="@style/BottomCardShape">
 
@@ -121,11 +122,13 @@
             android:layout_gravity="bottom"
             android:layout_marginTop="@dimen/spacing_unit"
             android:orientation="horizontal"
+            app:strokeWidth="0dp"
+            app:cardCornerRadius="0dp"
             app:cardElevation="4dp">
 
 
             <com.google.android.material.button.MaterialButton
-                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                style="@style/Widget.Material3.Button.OutlinedButton"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="8dp"

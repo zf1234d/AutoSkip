@@ -1,7 +1,7 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <bool name="is_night_mode">false</bool>
 
-    <style name="Base" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+    <style name="Base" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Primary brand color. -->
         <item name="colorPrimary">@color/primaryColor</item>
         <item name="colorPrimaryVariant">@color/primaryDarkColor</item>
@@ -14,18 +14,24 @@
         <item name="android:lineSpacingExtra">1dp</item>
         <item name="colorTopBarTint">?colorPrimary</item>
         <item name="colorTestBackground">?colorSecondary</item>
+
+        <item name="android:navigationBarColor">@android:color/transparent</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:windowLightStatusBar">true</item>
+        <item name="android:enforceStatusBarContrast" tools:targetApi="q">false</item>
+        <item name="android:enforceNavigationBarContrast" tools:targetApi="q">false</item>
     </style>
     <!-- Base application theme. -->
     <style name="Base.Automator">
         <item name="materialAlertDialogTheme">@style/ThemeOverlay.Automator.MaterialAlertDialog
         </item>
-        <item name="popupMenuStyle">@style/Widget.MaterialComponents.PopupMenu.Overflow
+        <item name="popupMenuStyle">@style/Widget.Material3.PopupMenu.Overflow
         </item>
     </style>
 
     <style name="Base.Automator.Scrim">
         <item name="android:windowTranslucentNavigation">true</item>
-        <item name="android:statusBarColor">@color/scrim</item>
+        <item name="android:navigationBarColor">@color/scrim</item>
     </style>
 
     <style name="Base.Automator.Fullscreen">
@@ -33,7 +39,7 @@
         <item name="android:windowFullscreen">true</item>
     </style>
     <!--Material Alert Dialog Override-->
-    <style name="ThemeOverlay.Automator.MaterialAlertDialog" parent="ThemeOverlay.MaterialComponents.MaterialAlertDialog">
+    <style name="ThemeOverlay.Automator.MaterialAlertDialog" parent="ThemeOverlay.Material3.MaterialAlertDialog">
         <item name="alertDialogStyle">@style/MaterialAlertDialog.Automator.Shape</item>
         <item name="android:windowAnimationStyle">@style/AlertDialogAnimation</item>
         <item name="materialAlertDialogBodyTextStyle">
@@ -41,13 +47,13 @@
         </item>
     </style>
 
-    <style name="Detail" parent="Theme.MaterialComponents.Dialog.Alert">
+    <style name="Detail" parent="Theme.Material3.DayNight.Dialog.Alert">
         <item name="android:windowAnimationStyle">@style/AlertDialogAnimation</item>
         <item name="android:windowMinWidthMajor">80%</item>
         <item name="android:windowMinWidthMinor">70%</item>
     </style>
     <!--Alert Dialog Style-->
-    <style name="MaterialAlertDialog.Automator.Shape" parent="MaterialAlertDialog.MaterialComponents">
+    <style name="MaterialAlertDialog.Automator.Shape" parent="MaterialAlertDialog.Material3">
         <item name="shapeAppearance">@style/ShapeAppearance.Dialog</item>
     </style>
 
@@ -72,7 +78,7 @@
         <item name="cornerSizeTopRight">16dp</item>
     </style>
     <!--Alert Dialog Body Text Style-->
-    <style name="MaterialAlertDialog.Automator.Body.Text" parent="MaterialAlertDialog.MaterialComponents.Body.Text">
+    <style name="MaterialAlertDialog.Automator.Body.Text" parent="MaterialAlertDialog.Material3.Body.Text">
         <item name="android:letterSpacing">0.05</item>
         <item name="android:lineSpacingExtra">1dp</item>
     </style>

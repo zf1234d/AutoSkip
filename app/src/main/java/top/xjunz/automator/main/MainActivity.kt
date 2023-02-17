@@ -4,7 +4,6 @@ import android.annotation.SuppressLint
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
-import android.os.Build
 import android.os.Bundle
 import android.os.Handler
 import android.view.Gravity
@@ -13,7 +12,6 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.PopupMenu
 import androidx.core.content.FileProvider
-import androidx.core.view.isVisible
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
@@ -55,13 +53,6 @@ class MainActivity : AppCompatActivity() {
                 vm = viewModel
             }
         initViews()
-    }
-
-    override fun onNewIntent(intent: Intent?) {
-        super.onNewIntent(intent)
-        if (intent?.data?.host == "about") {
-            AboutFragment().show(supportFragmentManager, "about")
-        }
     }
 
     private val statusObserver by lazy {
@@ -111,21 +102,25 @@ class MainActivity : AppCompatActivity() {
                         }
                     }
                     R.id.item_auto_start -> if (it.isChecked) {
+                        binding.tvTitle.text = getString(R.string.app_name)
                         setAutoStartComponentEnable(false)
                     } else {
+                        @SuppressLint("SetTextI18n")
                         if (Sui.isSui()) {
+                            binding.tvTitle.text = "${getString(R.string.app_name)}(AutoStart)"
                             setAutoStartComponentEnable(true)
                         } else {
                             if (isShizukuAutoStartEnabled() || enableShizukuAutoStart()) {
+                                binding.tvTitle.text = "${getString(R.string.app_name)}(AutoStart)"
                                 setAutoStartComponentEnable(true)
                             } else {
+                                binding.tvTitle.text = getString(R.string.app_name)
                                 toast(getString(R.string.pls_turn_on_shizuku_auto_start))
                                 launchShizukuManager()
                             }
                         }
                         it.isChecked = isAutoStartEnabled()
                     }
-                    R.id.item_about -> AboutFragment().show(supportFragmentManager, "about")
                 }
                 return@setOnMenuItemClickListener true
             }
@@ -138,6 +133,7 @@ class MainActivity : AppCompatActivity() {
     @SuppressLint("ClickableViewAccessibility")
     private fun initViews() {
         TopBarController(binding.topBar, binding.scrollView).init()
+        binding.tvTitle.text = if (isAutoStartEnabled()){ "${getString(R.string.app_name)}(AutoStart)" } else{ getString(R.string.app_name) }
         binding.ibMenu.setOnTouchListener(popupMenu.dragToOpenListener)
         viewModel.apply {
             isGranted.observe(this@MainActivity, statusObserver)
