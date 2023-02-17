@@ -20,15 +20,12 @@ int incrementRefine() {
 
 def refine = incrementRefine()
 android {
-    signingConfigs {
-        sign
-    }
-    compileSdkVersion 30
+    compileSdkVersion 33
 
     defaultConfig {
         applicationId "top.xjunz.automator"
-        minSdkVersion 23
-        targetSdkVersion 30
+        minSdkVersion 24
+        targetSdkVersion 33
         versionCode 5
         versionName "1.1.1"+ ".r" + refine
         if(gradle.startParameter.taskNames.any{it.toLowerCase().contains("debug")}){
@@ -43,42 +40,39 @@ android {
             shrinkResources true
             minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-            signingConfig signingConfigs.sign
         }
         debug {
             debuggable true
-            signingConfig signingConfigs.sign
         }
     }
     buildFeatures {
         dataBinding true
     }
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
+        sourceCompatibility JavaVersion.VERSION_11
+        targetCompatibility JavaVersion.VERSION_11
     }
     kotlinOptions {
-        jvmTarget = '1.8'
+        jvmTarget = 11
     }
 }
 
 dependencies {
     implementation project(":automator")
     compileOnly project(":automator:hidden-apis")
-    def shizuku_version = '12.0.0'
+    def shizuku_version = '13.1.0'
     implementation "dev.rikka.shizuku:api:$shizuku_version"
     implementation "dev.rikka.shizuku:provider:$shizuku_version"
-    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
-    implementation 'androidx.core:core-ktx:1.5.0'
-    implementation 'androidx.appcompat:appcompat:1.3.1'
-    implementation 'com.google.android.material:material:1.3.0'
-    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.3.1"
-    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.5.0"
-    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.5.0'
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:1.8.0"
+    implementation 'androidx.core:core-ktx:1.9.0'
+    implementation 'androidx.appcompat:appcompat:1.6.1'
+    implementation 'com.google.android.material:material:1.8.0'
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.5.1"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4"
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.4'
     // For using AppIconLoader directly.
-    implementation 'me.zhanghai.android.appiconloader:appiconloader:1.3.1'
+    implementation 'me.zhanghai.android.appiconloader:appiconloader:1.5.0'
     testImplementation 'junit:junit:4.13.2'
-    androidTestImplementation 'androidx.test.ext:junit:1.1.2'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.5'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
 }
-apply from: rootProject.file("sign.gradle")

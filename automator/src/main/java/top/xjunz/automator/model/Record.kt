@@ -1,6 +1,7 @@
 package top.xjunz.automator.model
 
 import android.graphics.Rect
+import android.os.Build
 import android.os.Parcel
 import android.os.Parcelable
 import top.xjunz.automator.util.Records
@@ -14,12 +15,16 @@ data class Record(
     var firstTimestamp: Long = 0, var latestTimestamp: Long = 0,
 ) : Parcelable {
 
+
+    @Suppress("DEPRECATION")
     constructor(parcel: Parcel) : this(
         parcel.readString()!!,
         parcel.readInt(),
         parcel.readString(),
-        parcel.readParcelable(Rect::class.java.classLoader),
-        parcel.readParcelable(Rect::class.java.classLoader),
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) { parcel.readParcelable(Rect::class.java.classLoader,Rect::class.java) }
+        else{ parcel.readParcelable(Rect::class.java.classLoader) },
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) { parcel.readParcelable(Rect::class.java.classLoader,Rect::class.java) }
+        else{ parcel.readParcelable(Rect::class.java.classLoader) },
         parcel.readLong(),
         parcel.readLong()
     )

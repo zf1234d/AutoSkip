@@ -125,17 +125,6 @@ class MainActivity : AppCompatActivity() {
                         }
                         it.isChecked = isAutoStartEnabled()
                     }
-                    R.id.item_feedback_email -> {
-                        viewModel.dumpLog()
-                        if (getFileStreamPath(LOG_FILE_NAME).exists()) {
-                            val uri = FileProvider.getUriForFile(this@MainActivity, "top.xjunz.automator.provider.file", logFile)
-                            sendMailTo(this@MainActivity, uri)
-                        } else {
-                            sendMailTo(this@MainActivity, null)
-                        }
-                    }
-                    R.id.item_feedback_group -> viewUrl(this@MainActivity, FEEDBACK_GROUP_URL)
-                    R.id.item_feedback_issues -> viewUrl(this@MainActivity, "https://github.com/xjunz/AutoSkip/issues")
                     R.id.item_about -> AboutFragment().show(supportFragmentManager, "about")
                 }
                 return@setOnMenuItemClickListener true
@@ -149,11 +138,6 @@ class MainActivity : AppCompatActivity() {
     @SuppressLint("ClickableViewAccessibility")
     private fun initViews() {
         TopBarController(binding.topBar, binding.scrollView).init()
-        binding.root.systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_STABLE or
-                View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
-        if (Build.VERSION.SDK_INT == Build.VERSION_CODES.M) {
-            binding.rlMRestriction.isVisible = true
-        }
         binding.ibMenu.setOnTouchListener(popupMenu.dragToOpenListener)
         viewModel.apply {
             isGranted.observe(this@MainActivity, statusObserver)
@@ -218,7 +202,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private val downloadUrl by lazy {
-        when (resources.configuration.locale.script) {
+        when (resources.configuration.locales.get(0).script) {
             "Hans" -> "https://shizuku.rikka.app/zh-hans/download/"
             "Hant" -> "https://shizuku.rikka.app/zh-hant/download/"
             else -> "https://shizuku.rikka.app/download/"

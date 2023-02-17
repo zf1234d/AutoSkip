@@ -58,7 +58,7 @@ class TestActivity : AppCompatActivity() {
                 return
             }
             animate().alpha(0f).setDuration(62).setListener(object : AnimatorListenerAdapter() {
-                override fun onAnimationEnd(animation: Animator?) {
+                override fun onAnimationEnd(animation: Animator) {
                     animate().alpha(1f).setListener(null).start()
                 }
             }).start()

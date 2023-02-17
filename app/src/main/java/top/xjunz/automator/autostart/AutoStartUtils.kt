@@ -48,7 +48,12 @@ fun enableShizukuAutoStart(): Boolean {
 }
 
 fun isAutoStartEnabled(): Boolean {
-    return Sui.isSui() || isComponentEnabled(myAutoStartComponentName) && isShizukuAutoStartEnabled()
+    return if(Sui.isSui()){
+        isComponentEnabled(myAutoStartComponentName)
+    }
+    else{
+        isShizukuAutoStartEnabled()
+    }
 }
 
 fun setAutoStartComponentEnable(enabled: Boolean) {
